@@ -1,0 +1,119 @@
+﻿@page "{id:int?}"
+@model BankingApp.Pages.Customers.ManageAccountModel
+
+@{
+    ViewData["Title"] = "ManageAccount";
+}
+
+<h2>ManageAccount</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.Customer.ID">Edit</a> |
+        <a asp-page="./Index">Back to List</a>
+        <div>
+            <form method="post">
+                <div class="form-group">
+                    <input asp-page-handler="Logout" type="submit" value="Logout" class="btn btn-default" />
+                </div>
+            </form>
+            
+        </div>
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.startDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.startDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.customerAge)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.customerAge)
+        </dd>
+    </dl>
+    <br />
+    <dl class="dl-horizontal">
+        <dt>Account Balance</dt>
+        <dd>$@Model.AccountBalance</dd>
+    </dl>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="DepositAmount" class="control-label"></label>
+            <input asp-for="DepositAmount" class="form-control" />
+            <span asp-validation-for="DepositAmount" class="text-danger"></span>
+            <input asp-page-handler="Deposit" type="submit" value="Deposit" class="btn btn-default" />
+        </div>
+        <div class="form-group">
+            <label asp-for="WithdrawAmount" class="control-label"></label>
+            <input asp-for="WithdrawAmount" class="form-control" />
+            <span asp-validation-for="WithdrawAmount" class="text-danger"></span>
+            <input asp-page-handler="Withdraw" type="submit" value="Withdraw" class="btn btn-default" />
+        </div>
+    </form>
+    <br />
+    <h2>Transaction History</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Transaction ID
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Transaction Amount
+                </th>
+                <th>
+                    Ending Balance
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customer.Account.Transactions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionTime)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.TransactionAmount)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.EndBalance)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

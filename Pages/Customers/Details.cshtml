@@ -1,0 +1,90 @@
+﻿@page "{id:int?}"
+@model BankingApp.Pages.Customers.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.startDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.startDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.customerAge)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Customer.customerAge)
+        </dd>
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Transaction Amount
+                </th>
+                <th>
+                    Ending Balance
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customer.Account.Transactions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndBalance)
+                    </td>
+                </tr>       
+            }
+        </tbody>
+        
+    </table>
+
+
+
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Customer.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
